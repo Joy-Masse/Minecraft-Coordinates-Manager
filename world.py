@@ -1,3 +1,5 @@
+import json
+
 # World class
 class World:
     def __init__(self, name, version, seed):
@@ -17,3 +19,16 @@ class World:
 
     def edit_seed(self, new_seed):
         self.seed = new_seed
+
+    # JSON
+    def write_world_data(self):
+        world_file = open("data/worlds/" + self.name + ".json", "w")
+
+        world = {"name": self.name,
+                "version": self.version,
+                "seed": self.seed
+                }
+
+        string = json.dumps(world)
+        world_file.write(string)
+        world_file.close()

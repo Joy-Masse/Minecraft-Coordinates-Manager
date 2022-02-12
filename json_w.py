@@ -12,7 +12,3 @@ def write_world_data(world):
     string = json.dumps(world)
     world_file.write(string)
     world_file.close()
-
-world = World("nass")
-world.edit_seed(10000)
-write_world_data(world)

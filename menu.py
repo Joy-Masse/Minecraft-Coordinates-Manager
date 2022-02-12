@@ -41,7 +41,6 @@ class Menu:
 
         # Check to see if mode is correct
         if mode in modes:
-
             # "basic"
             if mode == "basic":
                 input_var = input("Command: ")
@@ -59,7 +58,6 @@ class Menu:
                 seed = input("Seed: ")
 
                 return World(name, version, seed)
-
         else:
             print("ERROR: Invalid 'get_input' mode. Contact the developer.")
 
