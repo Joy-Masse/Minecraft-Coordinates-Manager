@@ -1,18 +1,20 @@
 from world import World
 
 # Main menu
+
+
 class Menu:
     def __init__(self):
         self.phrases = {
-        "hello": "Welcome to Minecraft Coordinates Manager!\n",
-        "error": "ERROR: No such command.\n",
-        "goodbye": "Hope you enjoyed using Minecraft Coordinates Manager!\n"
+            "hello": "Welcome to Minecraft Coordinates Manager!\n",
+            "error": "ERROR: No such command.\n",
+            "goodbye": "Hope you enjoyed using Minecraft Coordinates Manager!\n"
         }
 
         self.options = ["This Menu", "Add World", "List Worlds",
                         "Remove World", "Quit"]
         self.commands = {"help": "Help", "lw": "List Worlds",
-                        "aw": "Add World", "rw": "Remove World", "q": "Quit"}
+                         "aw": "Add World", "rw": "Remove World", "q": "Quit"}
 
     # Prints selected phrase if it is in list of phrases
     def print_phrase(self, phrase):
@@ -37,7 +39,7 @@ class Menu:
     # "basic" - basic mode of operation (Help, Add Worlds, Remove Worlds, etc.)
     # "add world" - Gets input to add world (name, seed...)
     def get_input(self, mode):
-        modes = ("basic", "add world")
+        modes = ("basic", "add world", "remove world")
 
         # Check to see if mode is correct
         if mode in modes:
@@ -58,6 +60,16 @@ class Menu:
                 seed = input("Seed: ")
 
                 return World(name, version, seed)
+            elif mode == "remove world":
+                print("\nWhich world would you want to remove?")
+
+                # Get world to remove and removal confirmation.
+                world_to_remove = input("World Name: ")
+                if input("Are you sure? Y/N: ") == "Y":
+                    print(f"Removing {world_to_remove}...")
+                    return(world_to_remove)
+                else:
+                    return None
         else:
             print("ERROR: Invalid 'get_input' mode. Contact the developer.")
 
@@ -70,7 +82,8 @@ class Menu:
                 # Name
                 print(worlds_list[i].name + ":")
                 # Everything else
-                print("\tVersion: " + worlds_list[i].version + "\n\tSeed: " + worlds_list[i].seed + "\n")
+                print("\tVersion: " + worlds_list[i].version +
+                      "\n\tSeed: " + worlds_list[i].seed + "\n")
         # In case worlds do not exist
         else:
             print("No Worlds Found\n")
@@ -88,6 +101,6 @@ class Menu:
         elif result == self.commands["lw"]:
             return self.commands["lw"]
         elif result == self.commands["rw"]:
-            print("NOT YET IMPLEMENTED")
+            return self.commands["rw"]
         elif result == self.commands["q"]:
             return self.commands["q"]

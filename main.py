@@ -3,6 +3,7 @@ import os
 from menu import Menu
 from world import World
 
+
 def main():
     worlds = []
 
@@ -42,19 +43,32 @@ def main():
         print()
         command = menu.get_input("basic")
         print()
-        # Check if command is correct and process it.
+        # Check if command is correct and process it.'
         if command != False:
             # Process command
             command = menu.process_command(command)
-
             # Add world
             if command == menu.commands["aw"]:
+                # Adds world to global world list.
                 worlds.append(menu.get_input("add world"))
-                # World that has just been added will be at the end of the list
+
+                # World that had just been added will be at the end of the list
                 worlds[-1].write_world_data()
-                print(worlds[0].name, worlds[0].seed, worlds[0].version)
+            # List worlds
             elif command == menu.commands["lw"]:
                 menu.list_worlds(worlds)
+            elif command == menu.commands["rw"]:
+                menu.list_worlds(worlds)
+                command = menu.get_input("remove world")
+
+                for i in range(len(worlds)):
+                    if worlds[i].name == command:
+                        worlds[i].remove()
+                        worlds.pop(i)
+                        break
+                else:
+                    print("Either world with such name does not exist or operation canceled.\nOperation aborted.")
+
             # Quit
             elif command == menu.commands['q']:
                 running = False
@@ -62,5 +76,6 @@ def main():
                 break
         else:
             menu.print_phrase("error")
+
 
 main()
